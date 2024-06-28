@@ -17,9 +17,9 @@
             @if (block.type === 'DATA_SET') {
                 <div class="data-set-tables">
                     @for(element of block.elements; track element.name) {
-                        <h3>{{ element.displayName }}</h3>
+                        <h3 class="block-label">{{ element.displayName }}</h3>
                         <m-table [fieldDefinitions]="dashState.layoutResponse.fieldDefinitions" 
-                        [fields]="element.fields ?? []"
+                        [fields]="element.fields ?? []" [aggs]="dashState.aggs" [name]="element.name"
                         [data]="dashState.fullDataResponse.dataSets[element.name]"></m-table>
                     }
                 </div>

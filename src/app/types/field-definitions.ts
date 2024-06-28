@@ -25,7 +25,12 @@ export interface ElementGroup {
   width: number;
   elements: Element[];
 }
-
+export interface Aggregates {
+  [index: string]: Aggregate;
+}
+export interface Aggregate {
+  [index: string]: number;
+}
 interface Element {
   name: string;
   type: ElementType;

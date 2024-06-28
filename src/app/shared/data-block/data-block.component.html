@@ -1,20 +1,4 @@
 <div>
     <label class="block-label">{{fieldDefinition.label}}</label>
-    @switch (fieldDefinition.format) {
-        @case ("none") {
-            <span class="block-value">{{value}}</span>
-        }
-        @case ("currency") {
-            <span class="block-value">{{value | currency: 'USD' : 'symbol' : fieldDefinition.digitsInfo}}</span>
-        }
-        @case ("percent") {
-            <span class="block-value">{{value | percent: fieldDefinition.digitsInfo }}</span>
-        }
-        @case ("number") {
-            <span class="block-value">{{value | number: fieldDefinition.digitsInfo}}</span>
-        }
-        @case ("datetime") {
-            <span class="block-value">{{value | date }}</span>
-        }
-    }
+    <span class="block-value">{{value | format : fieldDefinition}}</span>
 </div>

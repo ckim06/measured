@@ -1,21 +1,16 @@
 import {
-  CurrencyPipe,
-  DatePipe,
-  DecimalPipe,
-  PercentPipe,
-} from '@angular/common';
-import {
   ChangeDetectionStrategy,
   Component,
   HostBinding,
   Input,
 } from '@angular/core';
 import { FieldDefinition } from '@m-types/field-definitions';
+import { FormatPipe } from '@shared/format.pipe';
 
 @Component({
   selector: 'm-data-block',
   standalone: true,
-  imports: [CurrencyPipe, DatePipe, DecimalPipe, PercentPipe],
+  imports: [FormatPipe],
   templateUrl: './data-block.component.html',
   styleUrl: './data-block.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -23,5 +18,5 @@ import { FieldDefinition } from '@m-types/field-definitions';
 export class MDataBlockComponent {
   @HostBinding('style.width') @Input() width: string = '';
   @Input() fieldDefinition!: FieldDefinition;
-  @Input() value?: string | number;
+  @Input() value: string | number = '';
 }

@@ -1,35 +1,42 @@
-<p-table [columns]="columns" [value]="data"  styleClass="p-datatable-striped m-table" >
-    <ng-template pTemplate="header" let-columns>
+<p-table [value]="data" styleClass="p-datatable-striped m-table">
+    <ng-template pTemplate="header">
         <tr>
             @for(col of columns; track col.name) {
             <th>
                 {{ col.label }}
             </th>
-        }
+            }
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-data let-columns="columns">
+    <ng-template pTemplate="body" let-data>
         <tr>
             @for(col of columns; track col) {
-                <td>
-                    @switch (fieldDefinitions[col.name].format) {
-                        @case ("none") {
-                            <span class="block-value">{{data[col.name]}}</span>
-                        }
-                        @case ("currency") {
-                            <span class="block-value">{{data[col.name] | currency: 'USD' : 'symbol' : fieldDefinitions[col.name].digitsInfo}}</span>
-                        }
-                        @case ("percent") {
-                            <span class="block-value">{{data[col.name] | percent: fieldDefinitions[col.name].digitsInfo }}</span>
-                        }
-                        @case ("number") {
-                            <span class="block-value">{{data[col.name] | number: fieldDefinitions[col.name].digitsInfo}}</span>
-                        }
-                        @case ("datetime") {
-                            <span class="block-value">{{data[col.name] | date }}</span>
-                        }
-                    }
-                </td>
+            <td>
+                <span class="block-value">{{data[col.name] | format : fieldDefinitions[col.name]}}</span>
+            </td>
+            }
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <tr>
+            @for(col of columns; track col) {
+            <td>
+
+                @switch (fieldDefinitions[col.name].aggFn) {
+                @case ("none") {
+                @if (fieldDefinitions[col.name].type !== 'string') {
+                -
+                }
+                }
+                @case ("sum") {
+                <span class="block-value">{{ aggs[name][col.name] | format :fieldDefinitions[col.name] }}</span>
+                }
+                @case ("average") {
+                <span class="block-value">{{ aggs[name][col.name]| format :fieldDefinitions[col.name] }}</span>
+                }
+                }
+            </td>
+
             }
         </tr>
     </ng-template>
