@@ -1,3 +1,27 @@
-<m-table></m-table>
-cc
-{{dashState$ | async | json}}
+@if (dashState$ | async; as dashState) {
+    @for(block of dashState.layoutResponse.layout; track block.name) {
+        <div>
+            <h3>{{block.label}}</h3>
+        </div>
+        @if (block.type === 'DATA_POINT') {
+            <div>
+
+                @for(element of block.elements; track element.name) {
+                    <m-data-block  [width]="element.width" 
+                    [fieldDefinition]="dashState.layoutResponse.fieldDefinitions[element.name]"
+                    [value]="dashState.fullDataResponse.dataPoints[element.name]"></m-data-block>
+                }
+                
+            </div>
+        }
+        @if (block.type === 'DATA_SET') {
+            <div>
+                @for(element of block.elements; track element.name) {
+                    <h3>{{ element.displayName }}</h3>
+                    <m-table [fields]="element.fields ?? []" 
+                    [data]="dashState.fullDataResponse.dataSets[element.name]"></m-table>
+                }
+            </div>
+     }
+    }
+}

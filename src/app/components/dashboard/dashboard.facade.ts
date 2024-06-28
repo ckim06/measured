@@ -3,6 +3,7 @@ import { MetricsService } from '@services/metrics.service';
 import { FieldDefinitionsService } from '@services/field-definitions.service';
 import { BehaviorSubject, mergeMap, tap } from 'rxjs';
 import { DashboardState } from '@m-types/dashboard';
+import { ClientFullDataResponse, FullDataResponse } from '@m-types/metrics';
 
 @Injectable({
   providedIn: 'root',
@@ -11,9 +12,9 @@ export class DashboardFacade {
   initalState: DashboardState = {
     fullDataResponse: {
       dataPoints: {},
-      dataSets: [],
+      dataSets: {},
     },
-    layoutRepsonse: {
+    layoutResponse: {
       displayName: '',
       fieldDefinitions: {},
       layout: [],
@@ -33,18 +34,27 @@ export class DashboardFacade {
       tap((fullDataResponse) => {
         this.stateSubject.next({
           ...this.stateSubject.value,
-          fullDataResponse,
+          fullDataResponse: this.mapFullDataResponse(fullDataResponse),
         });
       })
     ).subscribe();
 
     this.fieldDefsService.getFieldDefinitions().pipe(
-      tap((layoutRepsonse) => {
+      tap((layoutResponse) => {
         this.stateSubject.next({
           ...this.stateSubject.value,
-          layoutRepsonse,
+          layoutResponse,
         });
       })
     ).subscribe();
+  }
+
+  mapFullDataResponse(fullDataResponse: FullDataResponse): ClientFullDataResponse{
+    const clientFullData = {...this.initalState.fullDataResponse};
+    clientFullData.dataPoints = fullDataResponse.dataPoints;
+    fullDataResponse.dataSets.forEach((set) => {
+      clientFullData.dataSets[set.name] = set.data
+    });
+    return clientFullData;
   }
 }

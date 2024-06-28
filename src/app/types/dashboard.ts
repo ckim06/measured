@@ -1,7 +1,7 @@
-import { FullDataResponse } from './metrics';
+import { ClientFullDataResponse } from './metrics';
 import { LayoutResponse } from './field-definitions';
 
 export interface DashboardState {
-  fullDataResponse: FullDataResponse;
-  layoutRepsonse: LayoutResponse;
+  fullDataResponse: ClientFullDataResponse;
+  layoutResponse: LayoutResponse;
 }
