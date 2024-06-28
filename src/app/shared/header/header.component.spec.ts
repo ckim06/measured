@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MTableComponent } from './m-table.component';
+import { MHeaderComponent } from './header.component';
 
-describe('MTableComponent', () => {
-  let component: MTableComponent;
-  let fixture: ComponentFixture<MTableComponent>;
+describe('MHeaderComponent', () => {
+  let component: MHeaderComponent;
+  let fixture: ComponentFixture<MHeaderComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MTableComponent]
+      imports: [MHeaderComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MTableComponent);
+    fixture = TestBed.createComponent(MHeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MDataBlockComponent } from './m-data-block.component';
+import { MTableComponent } from './table.component';
 
-describe('MDataBlockComponent', () => {
-  let component: MDataBlockComponent;
-  let fixture: ComponentFixture<MDataBlockComponent>;
+describe('MTableComponent', () => {
+  let component: MTableComponent;
+  let fixture: ComponentFixture<MTableComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MDataBlockComponent]
+      imports: [MTableComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MDataBlockComponent);
+    fixture = TestBed.createComponent(MTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

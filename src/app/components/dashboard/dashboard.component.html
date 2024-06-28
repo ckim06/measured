@@ -1,27 +1,30 @@
 @if (dashState$ | async; as dashState) {
-    @for(block of dashState.layoutResponse.layout; track block.name) {
-        <div>
-            <h3>{{block.label}}</h3>
+    <m-header [title]="dashState.layoutResponse.displayName"></m-header>
+     <div class="content">
+        @for(block of dashState.layoutResponse.layout; track block.name) {
+            <div class="layout">
+            @if (block.type === 'DATA_POINT') {
+                <h3 class="block-label">{{block.label}}</h3>
+                <div class="data-point-block" [style.width]="block.width | width">
+                    @for(element of block.elements; track element.name) {
+                        <m-data-block [width]="element.width | width" 
+                        [fieldDefinition]="dashState.layoutResponse.fieldDefinitions[element.name]"
+                        [value]="dashState.fullDataResponse.dataPoints[element.name]"></m-data-block>
+                    }
+                </div>
+            }
+            
+            @if (block.type === 'DATA_SET') {
+                <div class="data-set-tables">
+                    @for(element of block.elements; track element.name) {
+                        <h3>{{ element.displayName }}</h3>
+                        <m-table [fieldDefinitions]="dashState.layoutResponse.fieldDefinitions" 
+                        [fields]="element.fields ?? []"
+                        [data]="dashState.fullDataResponse.dataSets[element.name]"></m-table>
+                    }
+                </div>
+            }
         </div>
-        @if (block.type === 'DATA_POINT') {
-            <div>
-
-                @for(element of block.elements; track element.name) {
-                    <m-data-block  [width]="element.width" 
-                    [fieldDefinition]="dashState.layoutResponse.fieldDefinitions[element.name]"
-                    [value]="dashState.fullDataResponse.dataPoints[element.name]"></m-data-block>
-                }
-                
-            </div>
         }
-        @if (block.type === 'DATA_SET') {
-            <div>
-                @for(element of block.elements; track element.name) {
-                    <h3>{{ element.displayName }}</h3>
-                    <m-table [fields]="element.fields ?? []" 
-                    [data]="dashState.fullDataResponse.dataSets[element.name]"></m-table>
-                }
-            </div>
-     }
-    }
+    </div>
 }

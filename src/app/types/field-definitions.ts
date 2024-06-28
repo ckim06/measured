@@ -22,6 +22,7 @@ export interface ElementGroup {
   name: string;
   label: string;
   type: ElementType;
+  width: number;
   elements: Element[];
 }
 

@@ -1,0 +1,24 @@
+
+header {
+    background: #2c2283;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+    font-size: .7em;
+}
+ ::ng-deep p-splitButton {
+    .p-button.p-button-text{
+        color: #fff;
+    }
+    .p-button.p-button-sm {
+        padding: 0;
+    }
+    .p-button .p-button-icon-left {
+        margin-right: .5em;
+    }
+    .p-button:enabled:focus{
+        box-shadow:none;
+      
+    }
+}

@@ -1,0 +1,8 @@
+<header>
+    <h2>{{title}}</h2>
+    <div class="header-menu">
+        <p-toast/>
+        <p-menu #menu [model]="menuItems" [popup]="true" />
+        <p-splitButton size="small" label="Reports" (click)="menu.toggle($event)" icon="pi pi-objects-column" text/>
+    </div>
+</header>
